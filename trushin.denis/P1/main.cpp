@@ -5,7 +5,7 @@ namespace trushin {
   int inMass(int *x);
   int sumPif(const int *x);
   int newMass(int *x);
-} // namespace trushin
+}
 
 int main()
 {
