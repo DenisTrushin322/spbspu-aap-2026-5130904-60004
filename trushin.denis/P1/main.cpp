@@ -2,12 +2,13 @@
 #include <iostream>
 #include <stdexcept>
 namespace trushin {
-int inMass(int *x);
-int sumPif(const int *x);
-int newMass(int *x);
+  int inMass(int *x);
+  int sumPif(const int *x);
+  int newMass(int *x);
 } // namespace trushin
 
-int main() {
+int main()
+{
   int x[3];
   int sum = 0;
   int n = 1;
@@ -33,7 +34,8 @@ int main() {
   std::cout << sum << '\n';
 }
 
-int trushin::inMass(int *x) {
+int trushin::inMass(int *x)
+{
   for (int i = 0; i < 3; ++i) {
     std::cin >> x[i];
     if (std::cin.fail()) {
@@ -46,7 +48,8 @@ int trushin::inMass(int *x) {
   return 3;
 }
 
-int trushin::sumPif(const int *x) {
+int trushin::sumPif(const int *x)
+{
   if (x[0] <= 0 || x[1] <= 0 || x[2] <= 0) {
     return 0;
   }
@@ -59,7 +62,8 @@ int trushin::sumPif(const int *x) {
   return 0;
 }
 
-int trushin::newMass(int *x) {
+int trushin::newMass(int *x)
+{
   int y = 0;
   std::cin >> y;
   if (std::cin.fail()) {
