@@ -23,7 +23,7 @@ namespace trushin {
     num = result;
     return true;
   }
-  size_t CountGoodStolb(const int *a, size_t y, size_t x)
+  size_t countGoodStolb(const int *a, size_t y, size_t x)
   {
     size_t count = 0;
     for (size_t j = 0; j < x; ++j) {
@@ -48,8 +48,7 @@ int main(int argc, char **argv)
     return 1;
   }
   int num = 0;
-  if (trushin::parseTaskNumber(argv[1], num) == false ||
-      (num != 1 && num != 2)) {
+  if (!trushin::parseTaskNumber(argv[1], num) || (num != 1 && num != 2)) {
     std::cerr << "Bad first parametr\n";
     return 1;
   }
@@ -72,7 +71,8 @@ int main(int argc, char **argv)
   const size_t y = a;
   const size_t x = b;
   size_t count = 0;
-  int fix[10000] = {};
+  constexpr size_t maxSize = 10000;
+  int fix[maxSize] = {};
   int *dynamic = nullptr;
   int *matrix = nullptr;
   count = x * y;
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
       return 2;
     }
   }
-  const size_t sum = trushin::CountGoodStolb(matrix, y, x);
+  const size_t sum = trushin::countGoodStolb(matrix, y, x);
   std::ofstream output(argv[3]);
   output << sum << '\n';
   delete[] dynamic;
