@@ -3,43 +3,8 @@
 #include <iostream>
 #include <new>
 namespace trushin {
-  bool parseTaskNumber(const char *str, int &num)
-  {
-    int result = 0;
-    if (str[0] == '\0') {
-      return false;
-    }
-    for (size_t i = 0; str[i] != 0; ++i) {
-      if (str[i] < '0' || str[i] > '9') {
-        return false;
-      }
-    }
-    for (size_t i = 0; str[i] != '\0'; ++i) {
-      result = result * 10 + (str[i] - '0');
-      if (result > 2) {
-        return false;
-      }
-    }
-    num = result;
-    return true;
-  }
-  size_t countGoodStolb(const int *a, size_t y, size_t x)
-  {
-    size_t count = 0;
-    for (size_t j = 0; j < x; ++j) {
-      bool good = true;
-      for (size_t i = 1; i < y; ++i) {
-        if (a[i * x + j] == a[(i - 1) * x + j]) {
-          good = false;
-          break;
-        }
-      }
-      if (good) {
-        ++count;
-      }
-    }
-    return count;
-  }
+  bool number(const char *str, int &num);
+  size_t countGoodStolb(const int *a, size_t y, size_t x);
 }
 int main(int argc, char **argv)
 {
@@ -48,7 +13,7 @@ int main(int argc, char **argv)
     return 1;
   }
   int num = 0;
-  if (!trushin::parseTaskNumber(argv[1], num) || (num != 1 && num != 2)) {
+  if (trushin::number(argv[1], num) != true || (num != 1 && num != 2)) {
     std::cerr << "Bad first parametr\n";
     return 1;
   }
@@ -70,12 +35,11 @@ int main(int argc, char **argv)
   }
   const size_t y = a;
   const size_t x = b;
-  size_t count = 0;
-  constexpr size_t maxSize = 10000;
+  const size_t maxSize = 10000;
+  const size_t count = x * y;
   int fix[maxSize] = {};
   int *dynamic = nullptr;
   int *matrix = nullptr;
-  count = x * y;
   if (num == 1) {
     matrix = fix;
   }
@@ -101,4 +65,41 @@ int main(int argc, char **argv)
   output << sum << '\n';
   delete[] dynamic;
   return 0;
+}
+bool trushin::number(const char *str, int &num)
+{
+  int result = 0;
+  if (str[0] == '\0') {
+    return false;
+  }
+  for (size_t i = 0; str[i] != '\0'; ++i) {
+    if (str[i] < '0' || str[i] > '9') {
+      return false;
+    }
+  }
+  for (size_t i = 0; str[i] != '\0'; ++i) {
+    result = result * 10 + (str[i] - '0');
+    if (result > 2) {
+      return false;
+    }
+  }
+  num = result;
+  return true;
+}
+size_t trushin::countGoodStolb(const int *a, size_t y, size_t x)
+{
+  size_t count = 0;
+  for (size_t j = 0; j < x; ++j) {
+    bool good = true;
+    for (size_t i = 1; i < y; ++i) {
+      if (a[i * x + j] == a[(i - 1) * x + j]) {
+        good = false;
+        break;
+      }
+    }
+    if (good) {
+      ++count;
+    }
+  }
+  return count;
 }
