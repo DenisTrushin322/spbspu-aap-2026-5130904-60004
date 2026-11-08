@@ -10,6 +10,11 @@ int main()
   size_t length = 0;
   try {
     char *const line = trushin::readStr(std::cin, length);
+    if (length == 0 && std::cin.eof()) {
+      std::cerr << "no input" << '\n';
+      delete[] line;
+      return 1;
+    }
     if (trushin::proverka(line) == 1) {
       std::cout << 1 << '\n';
       delete[] line;
